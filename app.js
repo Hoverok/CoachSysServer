@@ -19,6 +19,7 @@ var leaderRouter = require('./routes/leaderRouter');
 const uploadRouter = require('./routes/uploadRouter');
 var favoriteRouter = require('./routes/favoriteRouter.js');
 var commentRouter = require('./routes/commentRouter');
+var advertRouter = require('./routes/advertRouter');
 
 const mongoose = require('mongoose');
 
@@ -55,6 +56,7 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/adverts', advertRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
