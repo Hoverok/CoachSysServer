@@ -1,6 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const pastJobSchema = new Schema({
+    startDate: {
+        type: String,
+        required: true
+    },
+    endDate: {
+        type: String
+    },
+    jobDescription: {
+        type: String,
+        required: true
+    }
+})
 
 const advertSchema = new Schema({
     description: {
@@ -19,6 +32,8 @@ const advertSchema = new Schema({
         type: String
         // default: ''
     },
+    pastJobs: [pastJobSchema]
+
     // author: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'User'
@@ -31,10 +46,21 @@ var Adverts = mongoose.model('Advert', advertSchema);
 
 module.exports = Adverts;
 
-
 // {
-//     "description" : "Esu kiets treneris",
-//     "workExperience" : "2019-2020",
-//     "achievements" : "dafiga",
-//     "specialization" : "kachalka"
+//     "description" : "Esu 2 treneris",
+//         "workExperience" : "2019-2020",
+//             "achievements" : "dafiga",
+//                 "specialization" : "kachalka",
+//                     "jobExperiences" : [
+                        // {
+                        //     "startDate": "2020-01-01",
+                        //     "endDate": "2222222",
+                        //     "jobDescription": "Solid darbas"
+                        // },
+                        // {
+                        //     "startDate": "233333",
+                        //     "endDate": "4444444",
+                        //     "jobDescription": "02 darbas"
+                        // }
+//                     ]
 // }
