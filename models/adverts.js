@@ -13,26 +13,35 @@ const pastJobSchema = new Schema({
         type: String,
         required: true
     }
-})
+});
+
+const achievmentSchema = new Schema({
+    achievementName: {
+        type: String,
+        required: true
+    },
+    achevementDescription: {
+        type: String
+    },
+    achievementDate: {
+        type: String,
+        required: true
+    }
+});
 
 const advertSchema = new Schema({
     description: {
         type: String,
         required: true
     },
-    workExperience: {
-        type: String
-        //required: true
-    },
-    achievements: {
-        type: String
-        // required: true
-    },
+
     specialization: {
         type: String
         // default: ''
     },
-    pastJobs: [pastJobSchema]
+
+    pastJobs: [pastJobSchema],
+    achievements: [achievmentSchema]
 
     // author: {
     //     type: mongoose.Schema.Types.ObjectId,
@@ -52,15 +61,13 @@ module.exports = Adverts;
 //             "achievements" : "dafiga",
 //                 "specialization" : "kachalka",
 //                     "jobExperiences" : [
+
+//                     ]
+// }
+//PAST JOBS
                         // {
                         //     "startDate": "2020-01-01",
                         //     "endDate": "2222222",
                         //     "jobDescription": "Solid darbas"
-                        // },
-                        // {
-                        //     "startDate": "233333",
-                        //     "endDate": "4444444",
-                        //     "jobDescription": "02 darbas"
                         // }
-//                     ]
-// }
+//ACHIEVEMENTS
