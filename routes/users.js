@@ -34,10 +34,27 @@ router.post('/signup', cors.corsWithOptions, (req, res, next) => {
         res.json({ err: err });
       }
       else {
-        if (req.body.firstname)
+        if (req.body.email) {
+          user.email = req.body.email;
+        }
+        if (req.body.phoneNum) {
+          user.phoneNum = req.body.phoneNum;
+        }
+        if (req.body.facebook) {
+          user.facebook = req.body.facebook;
+        }
+        if (req.body.instagram) {
+          user.instagram = req.body.instagram;
+        }
+        if (req.body.lingedin) {
+          user.lingedin = req.body.lingedin;
+        }
+        if (req.body.firstname) {
           user.firstname = req.body.firstname;
-        if (req.body.lastname)
+        }
+        if (req.body.lastname) {
           user.lastname = req.body.lastname;
+        }
         user.save((err, user) => {
           if (err) {
             res.statusCode = 500;

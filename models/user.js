@@ -3,6 +3,10 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new Schema({
+    email: {
+        type: String,
+        default: ''
+    },
     firstname: {
         type: String,
         default: ''
@@ -11,12 +15,34 @@ var User = new Schema({
         type: String,
         default: ''
     },
-    facebookId: String,
+    phoneNum: {
+        type: String,
+        default: ''
+    },
+    facebook: {
+        type: String,
+        default: ''
+    },
+    instagram: {
+        type: String,
+        default: ''
+    },
+    lingedin: {
+        type: String,
+        default: ''
+    },
+    trainer: {
+        type: Boolean,
+        default: false
+    },
     admin: {
         type: Boolean,
         default: false
-    }
-});
+    },
+    facebookId: String,
+},{
+        timestamps: true
+    });
 
 //automatically enables storing of username and password(also hashes password)
 User.plugin(passportLocalMongoose);
@@ -24,3 +50,4 @@ User.plugin(passportLocalMongoose);
 
 //gets imported by authenticate.js
 module.exports = mongoose.model('User', User);
+

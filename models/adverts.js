@@ -29,32 +29,6 @@ const achievmentSchema = new Schema({
     }
 });
 
-const specializationSchema = new Schema({
-    power: {
-        type: Boolean,
-    },
-    endurance: {
-        type: Boolean,
-    },
-    hiit: {
-        type: Boolean,
-    },
-    crossfit: {
-        type: Boolean,
-    },
-    rehab: {
-        type: Boolean,
-    },
-    weightLoss: {
-        type: Boolean,
-    },
-    weightGain: {
-        type: Boolean,
-    },
-    bodySculpt: {
-        type: Boolean,
-    },
-});
 
 const advertSchema = new Schema({
     description: {
@@ -86,12 +60,13 @@ const advertSchema = new Schema({
         type: Boolean,
     },
     pastJobs: [pastJobSchema],
-    achievements: [achievmentSchema]
 
-    // author: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User'
-    // },
+    achievements: [achievmentSchema],
+
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 }, {
     timestamps: true
 });
