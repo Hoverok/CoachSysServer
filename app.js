@@ -20,6 +20,7 @@ const uploadRouter = require('./routes/uploadRouter');
 var favoriteRouter = require('./routes/favoriteRouter.js');
 var commentRouter = require('./routes/commentRouter');
 var advertRouter = require('./routes/advertRouter');
+var certificateRouter = require('./routes/certificateRouter.js');
 
 const mongoose = require('mongoose');
 
@@ -58,6 +59,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/adverts', advertRouter);
 
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/dishes', dishRouter);
@@ -66,6 +68,8 @@ app.use('/leaders', leaderRouter);
 app.use('/imageUpload', uploadRouter);
 app.use('/favorites', favoriteRouter);
 app.use('/comments', commentRouter);
+app.use('/certificates', certificateRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
