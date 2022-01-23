@@ -7,14 +7,14 @@ const cors = require('./cors');
 const Certificates = require('../models/certificates');
 const Users = require('../models/user');
 
-const certificateRouter = express.Router();
+const myCertificateRouter = express.Router();
 
-certificateRouter.use(bodyParser.json());
+myCertificateRouter.use(bodyParser.json());
 
-certificateRouter.route('/')
+myCertificateRouter.route('/')
     .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
-    .get(cors.cors, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
-        Certificates.find(req.query)
+    .get(cors.cors, authenticate.verifyUser, (req, res, next) => {
+        Certificates.find({ author: req.user._id })
             .populate('author')
             .then((certificates) => {
                 res.statusCode = 200;
@@ -40,10 +40,10 @@ certificateRouter.route('/')
     })
     .put(cors.corsWithOptions, (req, res, next) => {
         res.statusCode = 403;
-        res.end('PUT operation not supported on /certificates');
+        res.end('PUT operation not supported on /myCertificates');
     })
-    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
-        Certificates.remove({})
+    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyTrainer, (req, res, next) => {
+        Certificates.remove({ author: req.user._id })
             .then((resp) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -52,9 +52,9 @@ certificateRouter.route('/')
             .catch((err) => next(err));
     });
 
-certificateRouter.route('/:certificateId')
+myCertificateRouter.route('/:certificateId')
     .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
-    .get(cors.cors, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+    .get(cors.cors, authenticate.verifyUser, authenticate.verifyTrainer, (req, res, next) => {
         Certificates.findById(req.params.certificateId)
             .populate('author')
             .then((certificate) => {
@@ -68,18 +68,12 @@ certificateRouter.route('/:certificateId')
         res.statusCode = 403;
         res.end('POST operation not supported on /certificates/' + req.params.certificateId);
     })
-    .put(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
-        Certificates.findByIdAndUpdate(req.params.certificateId, {
-            $set: req.body
-        }, { new: true })
-            .then((certificate) => {
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(certificate);
-            }, (err) => next(err))
-            .catch((err) => next(err));
+    .put(cors.corsWithOptions, (req, res, next) => {
+        res.statusCode = 403;
+        res.end('PUT operation not supported on /myCertificates/'
+            + req.params.certificateId);
     })
-    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyTrainer, (req, res, next) => {
         Certificates.findByIdAndRemove(req.params.certificateId)
             .then((resp) => {
                 res.statusCode = 200;
@@ -89,4 +83,4 @@ certificateRouter.route('/:certificateId')
             .catch((err) => next(err));
     });
 
-module.exports = certificateRouter;
+module.exports = myCertificateRouter;

@@ -77,7 +77,6 @@ module.exports = Adverts;
 
 // {
 //     "description": "Esu 2 treneris",
-//     "workExperience": "2019-2020",
 //     "power": true,
 //     "endurance": false,
 //     "hiit" : true,
@@ -92,8 +91,8 @@ module.exports = Adverts;
 //PAST JOBS
 // {
 //     "startDate": "2020-01-01",
-//         "endDate": "2222222",
-//             "jobDescription": "Solid darbas"
+//     "endDate": "2222222",
+//     "jobDescription": "Solid darbas"
 // }
 //ACHIEVEMENTS
 // {

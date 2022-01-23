@@ -51,3 +51,15 @@ User.plugin(passportLocalMongoose);
 //gets imported by authenticate.js
 module.exports = mongoose.model('User', User);
 
+
+// {
+//     "username": "admin",
+//     "password": "pass",
+//     "email": "pavelchi@gmail.com",
+//     "firstname": "Pavel",
+//     "lastname": "Chi",
+//     "phoneNum": "+37088888888",
+//     "facebook": "https://www.facebook.com/",
+//     "instagram": "https://www.instagram.com/",
+//     "lingedin": "https://www.linkedIn.com/"
+// }

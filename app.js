@@ -21,6 +21,8 @@ var favoriteRouter = require('./routes/favoriteRouter.js');
 var commentRouter = require('./routes/commentRouter');
 var advertRouter = require('./routes/advertRouter');
 var certificateRouter = require('./routes/certificateRouter.js');
+var myAdvertRouter = require('./routes/myAdvertRouter.js')
+var myCertificateRouter = require('./routes/myCertificateRouter.js')
 
 const mongoose = require('mongoose');
 
@@ -57,8 +59,6 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/adverts', advertRouter);
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -68,7 +68,10 @@ app.use('/leaders', leaderRouter);
 app.use('/imageUpload', uploadRouter);
 app.use('/favorites', favoriteRouter);
 app.use('/comments', commentRouter);
+app.use('/adverts', advertRouter);
 app.use('/certificates', certificateRouter);
+app.use('/myAdvert', myAdvertRouter);
+app.use('/myCertificates', myCertificateRouter);
 
 
 // catch 404 and forward to error handler

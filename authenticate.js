@@ -40,17 +40,30 @@ exports.jwtPassport = passport.use(new JwtStrategy(opts,
 
 exports.verifyUser = passport.authenticate('jwt', { session: false });
 
-exports.verifyAdmin = (req, res, next) => {
-    if (req.user.admin) {
+exports.verifyTrainer = (req, res, next) => {
+    if (req.user.trainer) {
         return next();
     } else {
         var err = new Error(
-            "You are not authorized to perform this operation!"
+            "You are not authorized to perform this operation! This is a trainer operation"
         );
         err.status = 403;
         return next(err);
     }
 };
+
+exports.verifyAdmin = (req, res, next) => {
+    if (req.user.admin) {
+        return next();
+    } else {
+        var err = new Error(
+            "You are not authorized to perform this operation! This is a trainer operation"
+        );
+        err.status = 403;
+        return next(err);
+    }
+};
+
 
 exports.facebookPassport = passport.use(new FacebookTokenStrategy({
     clientID: config.facebook.clientId,

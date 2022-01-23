@@ -24,7 +24,7 @@ advertRouter.route('/')
             .catch((err) => next(err));
     })
 
-    .post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+    .post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyTrainer, (req, res, next) => {
         Adverts.create(req.body)
             .then((advert) => {
                 console.log('Advert Created ', advert);
@@ -38,7 +38,7 @@ advertRouter.route('/')
             }, (err) => next(err))
             .catch((err) => next(err));
     })
-    .put(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+    .put(cors.corsWithOptions, (req, res, next) => {
         res.statusCode = 403;
         res.end('PUT operation not supported on /adverts');
     })
@@ -64,7 +64,7 @@ advertRouter.route('/:advertId')
             }, (err) => next(err))
             .catch((err) => next(err));
     })
-    .post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+    .post(cors.corsWithOptions, (req, res, next) => {
         res.statusCode = 403;
         res.end('POST operation not supported on /adverts/' + req.params.advertId);
     })
@@ -90,7 +90,7 @@ advertRouter.route('/:advertId')
     });
 
 advertRouter.route('/:advertId/pastJobs')
-    .get((req, res, next) => {
+    .get(cors.corsWithOptions, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null) {
@@ -106,7 +106,7 @@ advertRouter.route('/:advertId/pastJobs')
             }, (err) => next(err))
             .catch((err) => next(err));
     })
-    .post((req, res, next) => {
+    .post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin,(req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null) {
@@ -131,7 +131,7 @@ advertRouter.route('/:advertId/pastJobs')
         res.end('PUT operation not supported on /adverts/'
             + req.params.advertId + '/pastJobs');
     })
-    .delete((req, res, next) => {
+    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null) {
@@ -155,7 +155,7 @@ advertRouter.route('/:advertId/pastJobs')
     });
 
 advertRouter.route('/:advertId/pastJobs/:pastJobId')
-    .get((req, res, next) => {
+    .get(cors.corsWithOptions, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null && advert.pastJobs.id(req.params.pastJobId) != null) {
@@ -181,7 +181,7 @@ advertRouter.route('/:advertId/pastJobs/:pastJobId')
         res.end('POST operation not supported on /adverts/' + req.params.advertId
             + '/pastJobs/' + req.params.pastJobId);
     })
-    .put((req, res, next) => {
+    .put(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null && advert.pastJobs.id(req.params.pastJobId) != null) {
@@ -214,7 +214,7 @@ advertRouter.route('/:advertId/pastJobs/:pastJobId')
             }, (err) => next(err))
             .catch((err) => next(err));
     })
-    .delete((req, res, next) => {
+    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null && advert.pastJobs.id(req.params.pastJobId) != null) {
@@ -241,7 +241,7 @@ advertRouter.route('/:advertId/pastJobs/:pastJobId')
     });
 
 advertRouter.route('/:advertId/achievements')
-    .get((req, res, next) => {
+    .get(cors.corsWithOptions, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null) {
@@ -257,7 +257,7 @@ advertRouter.route('/:advertId/achievements')
             }, (err) => next(err))
             .catch((err) => next(err));
     })
-    .post((req, res, next) => {
+    .post(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null) {
@@ -282,7 +282,7 @@ advertRouter.route('/:advertId/achievements')
         res.end('PUT operation not supported on /adverts/'
             + req.params.advertId + '/achievements');
     })
-    .delete((req, res, next) => {
+    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null) {
@@ -306,7 +306,7 @@ advertRouter.route('/:advertId/achievements')
     });
 
 advertRouter.route('/:advertId/achievements/:achievementId')
-    .get((req, res, next) => {
+    .get(cors.corsWithOptions, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null && advert.achievements.id(req.params.achievementId) != null) {
@@ -332,7 +332,7 @@ advertRouter.route('/:advertId/achievements/:achievementId')
         res.end('POST operation not supported on /achievements/' + req.params.advertId
             + '/pastJobs/' + req.params.achievementId);
     })
-    .put((req, res, next) => {
+    .put(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null && advert.achievements.id(req.params.achievementId) != null) {
@@ -365,7 +365,7 @@ advertRouter.route('/:advertId/achievements/:achievementId')
             }, (err) => next(err))
             .catch((err) => next(err));
     })
-    .delete((req, res, next) => {
+    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         Adverts.findById(req.params.advertId)
             .then((advert) => {
                 if (advert != null && advert.achievements.id(req.params.achievementId) != null) {
