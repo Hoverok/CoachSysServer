@@ -42,7 +42,7 @@ myCertificateRouter.route('/')
         res.statusCode = 403;
         res.end('PUT operation not supported on /myCertificates');
     })
-    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyTrainer, (req, res, next) => {
+    .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
         Certificates.remove({ author: req.user._id })
             .then((resp) => {
                 res.statusCode = 200;
@@ -54,7 +54,7 @@ myCertificateRouter.route('/')
 
 myCertificateRouter.route('/:certificateId')
     .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
-    .get(cors.cors, authenticate.verifyUser, authenticate.verifyTrainer, (req, res, next) => {
+    .get(cors.cors, authenticate.verifyUser, (req, res, next) => {
         Certificates.findById(req.params.certificateId)
             .populate('author')
             .then((certificate) => {
@@ -73,8 +73,8 @@ myCertificateRouter.route('/:certificateId')
         res.end('PUT operation not supported on /myCertificates/'
             + req.params.certificateId);
     })
-    .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyTrainer, (req, res, next) => {
-        Certificates.findByIdAndRemove(req.params.certificateId)
+    .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+        Certificates.findOneAndDelete({ author: req.user._id })
             .then((resp) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');

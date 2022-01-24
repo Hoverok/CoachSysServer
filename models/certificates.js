@@ -33,5 +33,4 @@ module.exports = Certificates;
 // {
 //     "certificateName": "Esu 1 sertifikatas",
 //     "certificateDescription": "Sertifikato aprašymas",
-//     "isApproved": false
 // }

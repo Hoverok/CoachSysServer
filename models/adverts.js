@@ -91,7 +91,7 @@ module.exports = Adverts;
 //PAST JOBS
 // {
 //     "startDate": "2020-01-01",
-//     "endDate": "2222222",
+//     "endDate": "2021-01-01",
 //     "jobDescription": "Solid darbas"
 // }
 //ACHIEVEMENTS
